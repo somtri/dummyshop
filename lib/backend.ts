@@ -66,7 +66,7 @@ export async function listProducts(filters: ProductFilters) {
     if (filters.q) products = products.filter((p) => `${p.name} ${p.description}`.toLowerCase().includes(filters.q!.toLowerCase()));
     if (filters.category) products = products.filter((p) => p.category === filters.category);
     if (filters.diet) products = products.filter((p) => p.diet === filters.diet);
-    if (filters.maxPrice && filters.maxPrice > 0) products = products.filter((p) => p.priceCents <= filters.maxPrice! * 100);
+    if (filters.maxPrice && filters.maxPrice > 0) products = products.filter((p) => p.priceCents <= Math.round(filters.maxPrice! * 100));
     if (filters.minRating && filters.minRating > 0) products = products.filter((p) => p.rating >= filters.minRating!);
     if (filters.inStock) products = products.filter((p) => p.stock > 0);
     if (filters.sort === "price-asc") products.sort((a, b) => a.priceCents - b.priceCents);

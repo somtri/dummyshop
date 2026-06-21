@@ -20,7 +20,7 @@ export const seededProducts: Product[] = Array.from({ length: 40 }).map((_, i) =
     "Daily Mineral Hydration"
   ];
 
-  return {
+  const product = {
     id: `prod_${String(i + 1).padStart(3, "0")}`,
     name: `${names[i % names.length]} ${i + 1}`,
     description: "Benchmark product used for realistic shopping workflows.",
@@ -31,4 +31,11 @@ export const seededProducts: Product[] = Array.from({ length: 40 }).map((_, i) =
     stock,
     tags: [category, diet]
   };
+
+  // shop_001: exactly one qualifying vegetarian protein under $20 with rating >= 4.5
+  if (product.id === "prod_031") {
+    return { ...product, rating: 4.7 };
+  }
+
+  return product;
 });

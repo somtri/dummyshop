@@ -30,6 +30,9 @@ const products = Array.from({ length: 40 }).map((_, i) => ({
   tags: [categories[i % categories.length], diets[i % diets.length]]
 }));
 
+const prod031 = products.find((p) => p.id === "prod_031");
+if (prod031) prod031.rating = 4.7;
+
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 for (const p of products) {
   await pool.query(
