@@ -2,6 +2,7 @@ import { defineConfig } from "vitest/config";
 import path from "node:path";
 
 export default defineConfig({
+  envDir: path.resolve(__dirname, "tests/unit"),
   test: {
     environment: "node",
     setupFiles: ["./tests/unit/setup.ts"],
@@ -10,8 +11,7 @@ export default defineConfig({
       NODE_ENV: "test",
       DATABASE_URL: "",
       TEST_DATABASE_URL: ""
-    },
-    envDir: path.resolve(__dirname, "tests/unit")
+    }
   },
   resolve: {
     alias: {
