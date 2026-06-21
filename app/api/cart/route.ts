@@ -1,15 +1,9 @@
-import { getStore } from "@/lib/store";
+import { getCartWithItems } from "@/lib/backend";
+import { getSessionId } from "@/lib/session";
 import { NextResponse } from "next/server";
 
-export async function GET() {
-  const state = getStore();
-  const items = state.cartItems.map((item) => ({
-    ...item,
-    product: state.products.find((p) => p.id === item.productId)
-  }));
-  const totalCents = items.reduce((sum, item) => {
-    const price = item.product?.priceCents ?? 0;
-    return sum + price * item.quantity;
-  }, 0);
+export async function GET(request: Request) {
+  const sessionId = getSessionId(request);
+  const { items, totalCents } = await getCartWithItems(sessionId);
   return NextResponse.json({ items, totalCents });
 }

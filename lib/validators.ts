@@ -17,11 +17,13 @@ export const checkoutSchema = z.object({
 
 export const verifySchema = z.object({
   taskId: z.string().min(1),
-  expect: z.object({
-    cartQuantity: z.number().int().optional(),
-    diet: z.string().optional(),
-    category: z.string().optional(),
-    maxPriceEach: z.number().optional(),
-    minRating: z.number().optional()
-  })
+  expect: z
+    .object({
+      cartQuantity: z.number().int().optional(),
+      diet: z.string().optional(),
+      category: z.string().optional(),
+      maxPriceEach: z.number().optional(),
+      minRating: z.number().optional()
+    })
+    .optional()
 });

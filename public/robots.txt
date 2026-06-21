@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/admin/
+Disallow: /api/actions/token
+
+Sitemap: https://dummyshop-sooty.vercel.app/sitemap.xml

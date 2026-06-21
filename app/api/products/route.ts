@@ -1,4 +1,4 @@
-import { getStore } from "@/lib/store";
+import { listProducts } from "@/lib/backend";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -11,17 +11,6 @@ export async function GET(request: NextRequest) {
   const inStock = searchParams.get("inStock") === "true";
   const sort = searchParams.get("sort") || "relevance";
 
-  let products = [...getStore().products];
-  if (q) products = products.filter((p) => `${p.name} ${p.description}`.toLowerCase().includes(q));
-  if (category) products = products.filter((p) => p.category === category);
-  if (diet) products = products.filter((p) => p.diet === diet);
-  if (maxPrice > 0) products = products.filter((p) => p.priceCents <= maxPrice * 100);
-  if (minRating > 0) products = products.filter((p) => p.rating >= minRating);
-  if (inStock) products = products.filter((p) => p.stock > 0);
-
-  if (sort === "price-asc") products.sort((a, b) => a.priceCents - b.priceCents);
-  if (sort === "price-desc") products.sort((a, b) => b.priceCents - a.priceCents);
-  if (sort === "rating-desc") products.sort((a, b) => b.rating - a.rating);
-
+  const products = await listProducts({ q, category, diet, maxPrice, minRating, inStock, sort });
   return NextResponse.json({ products, count: products.length });
 }

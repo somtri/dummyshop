@@ -1,5 +1,29 @@
 # DummyShop
 
+## Commands
+
+```bash
+# Install
+pnpm install
+
+# Development
+pnpm dev
+
+# Build
+pnpm build
+
+# Tests
+pnpm test              # unit tests
+pnpm test:contract     # contract tests
+pnpm test:integration  # integration tests (requires TEST_DATABASE_URL)
+
+# Database
+pnpm db:migrate   # apply schema
+pnpm db:seed      # seed fixture data
+pnpm db:reset     # reset mutable state
+pnpm db:check     # verify connectivity
+```
+
 A realistic fake e-commerce website for testing shopping workflows through a normal human UI.
 
 ## Demo
@@ -24,7 +48,7 @@ DummyShop is a human-facing benchmark website for browser-agent evaluation. It i
 ## Architecture
 
 Next.js App Router app with route handlers under `app/api`.  
-Current implementation uses deterministic in-memory state to speed local benchmark setup; schema files match target Postgres tables for later Drizzle/Prisma wiring.
+API routes are now PostgreSQL-backed when `DATABASE_URL` is present, with deterministic in-memory fallback for local no-DB development.
 
 ## Tech Stack
 

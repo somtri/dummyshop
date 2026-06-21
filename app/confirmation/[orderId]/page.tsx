@@ -1,10 +1,10 @@
 import { formatMoney } from "@/lib/money";
-import { getStore } from "@/lib/store";
+import { getOrderById } from "@/lib/backend";
 import Link from "next/link";
 
 export default async function ConfirmationPage(props: { params: Promise<{ orderId: string }> }) {
   const { orderId } = await props.params;
-  const order = getStore().orders.find((item) => item.id === orderId);
+  const order = await getOrderById(orderId);
   if (!order) return <p>Order not found.</p>;
 
   return (

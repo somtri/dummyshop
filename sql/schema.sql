@@ -55,3 +55,6 @@ create table if not exists audit_events (
   metadata jsonb,
   created_at timestamptz not null default now()
 );
+
+-- session isolation: allow multiple carts per session
+create index if not exists carts_session_idx on carts(benchmark_session_id);
